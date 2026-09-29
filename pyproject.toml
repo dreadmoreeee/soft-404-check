@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "soft-404-check"
+version = "1.0.0"
+description = "Check that a site really answers 404 or 410 for pages that do not exist, and that removed URLs redirect sensibly."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "Marvin Palencia"}]
+keywords = ["404", "soft-404", "seo", "redirects", "http", "site-audit"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Internet :: WWW/HTTP :: Site Management",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/dreadmoreeee/soft-404-check"
+
+[project.scripts]
+soft-404-check = "soft_404_check.cli:main"
+
+[tool.setuptools]
+packages = ["soft_404_check"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

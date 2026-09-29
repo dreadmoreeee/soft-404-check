@@ -1,0 +1,6 @@
+# One URL per line; an optional second column is the page it should now lead to.
+# Relative paths are resolved against the SITE given on the command line.
+/old-page
+/blog/2019/retired-post
+/services/web-design /en/services/web-design
+https://example.com/promo-2020

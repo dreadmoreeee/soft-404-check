@@ -1,0 +1,30 @@
+# Example only: copy to .github/workflows/soft-404-check.yml in your own repository.
+# Fails the job when a site serves soft 404s or a removed URL redirects to the homepage.
+name: soft-404-check
+
+on:
+  schedule:
+    - cron: "43 6 * * 1"   # weekly, Monday 06:43 UTC
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install git+https://github.com/dreadmoreeee/soft-404-check
+      - name: Probe non-existent URLs (exit 1 on a soft 404, 2 on a network error)
+        run: soft-404-check https://example.com --format json --output probe-report.json
+      - name: Check removed URLs listed in the repository
+        run: soft-404-check https://example.com --urls removed-urls.txt --output removed-report.md
+      - name: Keep the reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: soft-404-reports
+          path: |
+            probe-report.json
+            removed-report.md
